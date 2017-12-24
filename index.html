@@ -3,109 +3,100 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>Lego Digital Designer</title>
+		<title>Lego Scroll</title>
 
 		<style type="text/css">
+            body {
+                margin: 0;
+                padding: 0;
+            }
 
-			div
-			{
+            div {
 			    font-family:arial,sans-serif;
 			    font-size: 11px;
 			    color:#000000;
 			}
 
-			.header
-			{
-			    width:1024px;
+			.header {
+			    width:100%;
 			    background-image:url('images/Images/Header.png');
 			    background-repeat:repeat-x;
 			    background-color: #000000;
 			    height:40px;
 			    padding-left:10px;
 			}
-
-            .headerPrint
-			{
+            .headerPrint {
 			    display:none;
 			}
 
-			.footer
-			{
+			.footer {
 			    font-size:10px;
 			    text-align:center;
-			    width:1024px;
 			}
 
-			.nav
-			{
+			.nav {
 			    text-align:center;
-			    width:1024px;
 			}
-
-			.step
-			{
+            .container {
+                width: 50%;
+                margin: 30px auto 0;
+            }
+			.step {
 			    display:none;
 			}
-
-			.stepdisplay
-			{
+			.stepdisplay {
 			    display:block;
-			    width:1024px;
 			    height:620px;
+                padding:8px;
+                width:1024px;
 			}
 
-			.modelParts
-			{
+			.modelParts {
 			    list-style-type:none;
 			    padding:4px 0px 0px 0px;
 			    margin:0px;
+                width:147px;
 			}
-			.modelParts ul
-			{
+			.modelParts ul {
 			    list-style-type:none;
 			    float:left;
 			    padding:5px 0px 0px 5px;
 			    width:140px;
 			    border:1px dotted gray;
 			    margin:0px
-			 }
-			.modelParts ul li
-			{
+			}
+			.modelParts ul li {
 			    padding:0px;
 			    margin:0px
 			}
-			.modelParts ul li img
-			{
+			.modelParts ul li img {
 			    padding:0px;
 			    height:64px;
 			    width:64px;
 			    margin-left:15px
 			}
 
-			.stepTextTop p
-			{
+			.stepTextTop p {
 			    margin:0px;
 			    padding:10px 0px 0px 0px;
-			 }
-			.stepText p
-			{
+			}
+			.stepText p {
 			    margin:0px;
 			    width:30px;
 			    padding:25px 0px 0px 10px;
 			}
 
-            .biElement
-            {
+            .biElement {
                 float:left;
                 margin:20px;
                 width:280px;
 
             }
 
-            .stepelements
-            {
+            .stepelements {
                 width:1024px;
 			    height:620px;
+                padding:8px;
                 overflow:auto;
             }
 
@@ -197,16 +188,53 @@
                 window.document.getElementById('stepNumber').value=step.toString();
                 biCurStep=step;
             }
+
+            document.onkeydown = function(e) {
+                e = e || window.event;
+                switch(e.which || e.keyCode) {
+                    case 37: // left
+                    biStep(biCurStep-1);
+                    break;
+
+                    case 39: // right
+                    biStep(biCurStep+1)
+                    break;
+
+                    default: return; // exit this handler for other keys
+                }
+                e.preventDefault(); // prevent the default action (scroll / move caret)
+            };
         </script>
 	</head>
 	<body onload="biStep(0)">
         <div class="header"><img src="images/Images/Logo.png" /></div>
         <div class="headerPrint"><img src="images/Images/Header_print.png" /></div>
 
-        <div class="stepdisplay" id="step_display"></div>
+        <div class="container">
+            <div class="stepdisplay" id="step_display"></div>
+            <div id="nav"  class="nav">
+                <table style="margin:0 auto" border="0">
+                    <tr>
+                        <td><a onclick="biStep(0);" href="#"><img border="0" alt="First" src="images/Images/Arrow_First.png" /></a></td>
+                        <td><a onclick="biStep(biCurStep-1);" href="#"><img border="0" alt="First" src="images/Images/Arrow_Backward.png" /></a></td>
+                        <td><input id="stepNumber" onkeydown="returnTest(window.event)" type="text" style="text-align:center;width:56px;height:28px;border:1px solid #cccccc;font-size:14px;font-weight:bold" /></td>
+                        <td><a onclick="biStep(biCurStep+1);" href="#"><img border="0" alt="First" src="images/Images/Arrow_Forward.png" /></a></td>
+                        <td><a onclick="biStep(100+1);" href="#"><img border="0" alt="First" src="images/Images/Arrow_Last.png" /></a></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="clear:both;">&nbsp;</div>
+            <div class="footer">Scroll Design by <em>Brent Shaffer</em></div>
+        </div>
 
         <div class="step" id="step_0">
-            <div style="float:left;width:150px"><p>Model Name:<br /><span style="font-weight:bold">Scroll Compressor</span><br /><br />Number of Bricks: <span style="font-weight:bold">243</span></p></div>
+            <div style="position:absolute;">
+                <p>
+                    Model Name: <span style="font-weight:bold">Scroll Compressor</span>
+                    <br /><br />
+                    Number of Bricks: <span style="font-weight:bold">243</span>
+                </p>
+            </div>
             <div style="float:left"><img height="600" width="800" src="images/Step100.png" /></div>
             <div style="clear:both"></div>
         </div>
@@ -219,7 +247,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick0.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -237,7 +264,6 @@
 							<li><img height="64" width="64" src="images/Brick0.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick2.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -251,7 +277,6 @@
 					<ul>
 							<li class="stepText"><p>3 x</p></li>
 							<li><img height="64" width="64" src="images/Brick3.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -265,7 +290,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick3.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -275,11 +299,7 @@
         <div class="step" id="step_5">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 5 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step5.png" /></div>
             <div style="clear:both"></div>
@@ -291,7 +311,6 @@
 					<ul>
 							<li class="stepText"><p>3 x</p></li>
 							<li><img height="64" width="64" src="images/Brick3.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -305,7 +324,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick3.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -315,11 +333,7 @@
         <div class="step" id="step_8">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 8 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step8.png" /></div>
             <div style="clear:both"></div>
@@ -333,7 +347,6 @@
 							<li><img height="64" width="64" src="images/Brick3.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick0.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -347,7 +360,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick3.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -357,11 +369,7 @@
         <div class="step" id="step_11">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 11 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step11.png" /></div>
             <div style="clear:both"></div>
@@ -375,7 +383,6 @@
 							<li><img height="64" width="64" src="images/Brick3.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick0.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -389,7 +396,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick3.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -399,11 +405,7 @@
         <div class="step" id="step_14">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 14 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step14.png" /></div>
             <div style="clear:both"></div>
@@ -415,7 +417,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick4.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -431,7 +432,6 @@
 							<li><img height="64" width="64" src="images/Brick5.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick6.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -445,7 +445,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick5.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -455,11 +454,7 @@
         <div class="step" id="step_18">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 18 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step18.png" /></div>
             <div style="clear:both"></div>
@@ -471,7 +466,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick4.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -487,7 +481,6 @@
 							<li><img height="64" width="64" src="images/Brick5.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick6.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -501,7 +494,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick5.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -511,11 +503,7 @@
         <div class="step" id="step_22">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 22 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step22.png" /></div>
             <div style="clear:both"></div>
@@ -527,7 +515,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick4.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -543,7 +530,6 @@
 							<li><img height="64" width="64" src="images/Brick5.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick6.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -557,7 +543,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick5.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -567,11 +552,7 @@
         <div class="step" id="step_26">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 26 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step26.png" /></div>
             <div style="clear:both"></div>
@@ -583,7 +564,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick4.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -599,7 +579,6 @@
 							<li><img height="64" width="64" src="images/Brick5.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick6.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -613,7 +592,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick5.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -623,11 +601,7 @@
         <div class="step" id="step_30">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 30 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step30.png" /></div>
             <div style="clear:both"></div>
@@ -635,11 +609,7 @@
         <div class="step" id="step_31">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 31 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step31.png" /></div>
             <div style="clear:both"></div>
@@ -651,7 +621,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -667,7 +636,6 @@
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -681,7 +649,6 @@
 					<ul>
 							<li class="stepText"><p>4 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -691,11 +658,7 @@
         <div class="step" id="step_35">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 35 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step35.png" /></div>
             <div style="clear:both"></div>
@@ -709,7 +672,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -719,11 +681,7 @@
         <div class="step" id="step_37">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 37 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step37.png" /></div>
             <div style="clear:both"></div>
@@ -737,7 +695,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -747,11 +704,7 @@
         <div class="step" id="step_39">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 39 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step39.png" /></div>
             <div style="clear:both"></div>
@@ -765,7 +718,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -775,11 +727,7 @@
         <div class="step" id="step_41">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 41 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step41.png" /></div>
             <div style="clear:both"></div>
@@ -791,7 +739,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -807,7 +754,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -823,7 +769,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -833,11 +778,7 @@
         <div class="step" id="step_45">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 45 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step45.png" /></div>
             <div style="clear:both"></div>
@@ -849,7 +790,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -865,7 +805,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -881,7 +820,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -891,11 +829,7 @@
         <div class="step" id="step_49">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 49 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step49.png" /></div>
             <div style="clear:both"></div>
@@ -907,7 +841,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -923,7 +856,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -939,7 +871,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -949,11 +880,7 @@
         <div class="step" id="step_53">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 53 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step53.png" /></div>
             <div style="clear:both"></div>
@@ -969,7 +896,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -987,7 +913,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1005,7 +930,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1023,7 +947,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1041,7 +964,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1059,7 +981,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1077,7 +998,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1091,7 +1011,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1107,7 +1026,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1123,7 +1041,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1139,7 +1056,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1155,7 +1071,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1171,7 +1086,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1187,7 +1101,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1203,7 +1116,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1219,7 +1131,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1235,7 +1146,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1251,7 +1161,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1267,7 +1176,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1283,7 +1191,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1299,7 +1206,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1315,7 +1221,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1325,11 +1230,7 @@
         <div class="step" id="step_76">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 76 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step76.png" /></div>
             <div style="clear:both"></div>
@@ -1341,7 +1242,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1357,7 +1257,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1373,7 +1272,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1383,11 +1281,7 @@
         <div class="step" id="step_80">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 80 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step80.png" /></div>
             <div style="clear:both"></div>
@@ -1399,7 +1293,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1415,7 +1308,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1431,7 +1323,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1441,11 +1332,7 @@
         <div class="step" id="step_84">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 84 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step84.png" /></div>
             <div style="clear:both"></div>
@@ -1457,7 +1344,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1473,7 +1359,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1489,7 +1374,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1499,11 +1383,7 @@
         <div class="step" id="step_88">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 88 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step88.png" /></div>
             <div style="clear:both"></div>
@@ -1515,7 +1395,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1531,7 +1410,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1547,7 +1425,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1557,11 +1434,7 @@
         <div class="step" id="step_92">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 92 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step92.png" /></div>
             <div style="clear:both"></div>
@@ -1573,7 +1446,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1589,7 +1461,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1605,7 +1476,6 @@
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
 							<li class="stepText"><p>2 x</p></li>
 							<li><img height="64" width="64" src="images/Brick7.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1615,11 +1485,7 @@
         <div class="step" id="step_96">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 96 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step96.png" /></div>
             <div style="clear:both"></div>
@@ -1631,7 +1497,6 @@
 					<ul>
 							<li class="stepText"><p>1 x</p></li>
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1647,7 +1512,6 @@
 							<li><img height="64" width="64" src="images/Brick8.png" /></li>
 							<li class="stepText"><p>3 x</p></li>
 							<li><img height="64" width="64" src="images/Brick9.png" /></li>
-
 					</ul>
 				</div>
             </div>
@@ -1657,11 +1521,7 @@
         <div class="step" id="step_99">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 99 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step99.png" /></div>
             <div style="clear:both"></div>
@@ -1669,18 +1529,14 @@
         <div class="step" id="step_100">
             <div style="float:left">
                 <div class="stepTextTop"><p><span style="font-weight:bold">Step 100 of 100</span></p></div>
-				<div class="modelParts">
-					<ul>
-
-					</ul>
-				</div>
+				<div class="modelParts"></div>
             </div>
             <div style="float:left"><img height="600" width="800" src="images/Step100.png" /></div>
             <div style="clear:both"></div>
         </div>
 
-        <div class="step" id="step_elements">
-            				<div class="biElement">
+        <div class="step" id="step_elements" style="height:600px">
+            	<div class="biElement">
                     <table border="0">
                         <tr style="vertical-align:middle">
 					        <td>28&nbsp;x</td>
@@ -1789,26 +1645,7 @@
 				        </tr>
                     </table>
                 </div>
-
-
             <div style="clear:both"></div>
         </div>
-
-        <div id="nav"  class="nav">
-            <table style="margin:0 auto" border="0">
-                <tr>
-                    <td><a onclick="biStep(0);" href="#"><img border="0" alt="First" src="images/Images/Arrow_First.png" /></a></td>
-                    <td><a onclick="biStep(biCurStep-1);" href="#"><img border="0" alt="First" src="images/Images/Arrow_Backward.png" /></a></td>
-                    <td><input id="stepNumber" onkeydown="returnTest(window.event)" type="text" style="text-align:center;width:56px;height:28px;border:1px solid #cccccc;font-size:14px;font-weight:bold" /></td>
-                    <td><a onclick="biStep(biCurStep+1);" href="#"><img border="0" alt="First" src="images/Images/Arrow_Forward.png" /></a></td>
-                    <td><a onclick="biStep(100+1);" href="#"><img border="0" alt="First" src="images/Images/Arrow_Last.png" /></a></td>
-                    <td style="width:40px">&nbsp;</td>
-                    <td><a onclick="window.print();return false;" href="#"><img border="0" alt="Print" src="images/Images/PrintIcon.png" /></a></td>
-                </tr>
-            </table>
-        </div>
-		<div style="clear:both;">&nbsp;</div>
-		<div class="footer">© 2012 The LEGO Group. All rights reserved.<br />
-Use of the LEGO Digital Designer html print tool, signifies your agreement to the terms of use.</div>
 	</body>
 </html>
